@@ -1,0 +1,74 @@
+@charset "utf-8";
+
+body {
+    margin: 0;
+}
+
+.wrap {
+    overflow: hidden;
+    position: relative;
+    width: 1200px;
+    margin: 0 auto;
+    background-color: #eee;
+}
+
+.header {
+    height: 200px;
+    background-color: #ccc;
+}
+
+.container {
+    overflow: hidden;
+    padding: 0 10px;
+}
+
+.nav {
+    float: left;
+    position: relative;
+    width: 200px;
+}
+
+.nav .floating {
+    position: absolute;
+    width: 200px;
+}
+
+.nav .fixed {
+    position: fixed;
+}
+
+.content {
+    float: left;
+    position: relative;
+    width: 680px;
+}
+
+.aside {
+    float: left;
+    position: relative;
+    width: 300px;
+}
+
+.aside .floating {
+    position: absolute;
+    width: 300px;
+}
+
+.aside .fixed {
+    position: fixed;
+}
+
+.article {
+    margin: 10px;
+    padding: 30% 0;
+    border: 1px solid #000;
+    text-align: center;
+}
+
+.article:nth-child(odd) {
+    background-color: #ccc;
+}
+
+.article:nth-child(even) {
+    background-color: #aaa;
+}
