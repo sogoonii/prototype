@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 body {
+    overflow-x: hidden;
     margin: 0;
 }
 
@@ -9,17 +10,23 @@ body {
     position: relative;
     width: 1200px;
     margin: 0 auto;
-    background-color: #eee;
+    border: solid #999;
+    border-width: 0 1px;
+    /*background-color: #eee;*/
 }
 
 .header {
     height: 200px;
-    background-color: #ccc;
+    border-bottom: 1px solid #999;
+}
+
+.footer {
+    height: 200px;
+    border-top: 1px solid #999;
 }
 
 .container {
     overflow: hidden;
-    padding: 0 10px;
 }
 
 .nav {
@@ -40,7 +47,9 @@ body {
 .content {
     float: left;
     position: relative;
-    width: 680px;
+    width: 698px;
+    border: solid #999;
+    border-width: 0 1px;
 }
 
 .aside {
@@ -59,16 +68,18 @@ body {
 }
 
 .article {
-    margin: 10px;
     padding: 30% 0;
-    border: 1px solid #000;
     text-align: center;
 }
 
+.article + .article {
+    border-top: 1px solid #ddd;
+}
+
 .article:nth-child(odd) {
-    background-color: #ccc;
+    /*background-color: #f8f8f8;*/
 }
 
 .article:nth-child(even) {
-    background-color: #aaa;
+    background-color: #f8f8f8;
 }
