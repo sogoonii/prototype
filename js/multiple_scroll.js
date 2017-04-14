@@ -61,8 +61,26 @@ function Scroller() {
         };
     };
 
+    // Fix 적용
+    this.attachFix = function(top) {
+        _$targetContent.addClass('fixed');
+        if (top) this.setTopPosition(top);
+    };
+
+    // Fix 해제
+    this.removeFix = function() {
+        _$targetContent.removeClass('fixed');
+        this.setTopPosition('auto');
+    };
+
+    // Top 위치값 적용
+    this.setTopPosition = function(top) {
+        _$targetContent.css('top', top);
+    };
+
     // 스크롤러 적용
     this.setScroller = function() {
+        var isLongerThanBrowser = _height >= _browserHeight;
         var scroll = _scrollUtil.getCurrentScroll();
         var result;
 
@@ -71,66 +89,41 @@ function Scroller() {
 
         // 스크롤 다운
         if (_scrollUtil.isScrollDown()) {
-
-            if (_height >= _browserHeight) {
-                if (_browserHeight + scroll >= _bottom) {
-                    _$targetContent.addClass('fixed');
-                    result = _browserHeight - _height;
-                }
-                if (scroll >= _container.bottom - _browserHeight) {
-                    _$targetContent.addClass('fixed');
-                    result = _container.bottom - _height - scroll;
-                }
+            if (isLongerThanBrowser) {
+                if (_browserHeight + scroll >= _bottom) this.attachFix(_browserHeight - _height);
+                if (scroll >= _container.bottom - _browserHeight) this.attachFix(_container.bottom - _height - scroll);
             } else {
-                if (scroll >= _container.top) {
-                    _$targetContent.addClass('fixed');
-                    result = 0;
-                }
-                if (scroll >= _container.bottom - _height) {
-                    _$targetContent.addClass('fixed');
-                    result = _container.bottom - _height - scroll;
-                }
+                if (scroll >= _container.top) this.attachFix(0);
+                if (scroll >= _container.bottom - _height) this.attachFix(_container.bottom - _height - scroll);
             }
-
         }
 
         // 스크롤 업
         else {
-
-            if (_height >= _browserHeight) {
-                result = _container.bottom - _height - scroll; // 따라다니다가
-                if (_container.bottom >= _browserHeight + scroll) {
-                    result = _browserHeight - _height; // 하단 고정
-                }
-                if (_top + _height > _browserHeight + scroll) {
-                    _$targetContent.removeClass('fixed'); // 다시 따라다님(fixed 해제)
-                    result = 'auto';
-                }
+            if (isLongerThanBrowser) {
+                // 따라다니다가
+                this.setTopPosition(_container.bottom - _height - scroll);
+                // 하단 고정
+                if (_container.bottom >= _browserHeight + scroll) this.setTopPosition(_browserHeight - _height);
+                if (_top + _height > _browserHeight + scroll) this.removeFix();
             } else {
-                if (scroll >= _container.bottom - _height) {
-                    result = _container.bottom - _height - scroll;
-                }
-                if (_container.top > scroll) {
-                    _$targetContent.removeClass('fixed'); // 다시 따라다님(fixed 해제)
-                    result = 'auto';
-                }
+                if (scroll >= _container.bottom - _height) this.setTopPosition(_container.bottom - _height - scroll);
+                if (_container.top > scroll) this.removeFix();
             }
-
         }
-
-        // 결과값 바인딩
-        _$targetContent.css('top', result);
     }
 }
 
 
 $(function () {
+    // 기준이 되는 본문 객체 생성
     var $container = $('.container');
     var container = {
         top: $container.offset().top,
         bottom: $container.offset().top + $container.height()
     };
 
+    // 스크롤러 각각 실행
     var navScroller = new Scroller().init('.nav', container);
     var asideScroller = new Scroller().init('.aside', container);
 });
