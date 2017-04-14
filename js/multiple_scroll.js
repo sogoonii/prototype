@@ -64,8 +64,7 @@ function Scroller() {
     // Fix 적용
     this.attachFix = function(top) {
         _$targetContent.addClass('fixed');
-        // top 위치값이 전달될 경우 적용
-        if (top === 0 || top === true) this.setTopPosition(top);
+        this.setTopPosition(top);
     };
 
     // Fix 해제
