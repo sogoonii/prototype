@@ -98,7 +98,7 @@ function Scroller() {
             }
             // 타겟이 브라우저보다 짧은 경우
             else {
-                // 브라우저 스크롤 남음
+                // 컨텐츠 스크롤 남음
                 if (scroll >= _container.top) this.attachFix(0);
                 // 컨텐츠 스크롤 끝남 && 브라우저 스크롤 남음
                 if (scroll >= _container.bottom - _height) this.attachFix(_container.bottom - _height - scroll);
