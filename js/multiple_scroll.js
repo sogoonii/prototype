@@ -89,25 +89,38 @@ function Scroller() {
 
         // 스크롤 다운
         if (_scrollUtil.isScrollDown()) {
+            // 타겟이 브라우저보다 긴 경우
             if (isLongerThanBrowser) {
+                // 타겟의 스크롤 끝남 && 컨텐츠 스크롤 남음
                 if (_browserHeight + scroll >= _bottom) this.attachFix(_browserHeight - _height);
+                // 타겟의 스크롤 끝남 && 컨텐츠 스크롤 끝남 && 브라우저 스크롤 남음
                 if (scroll >= _container.bottom - _browserHeight) this.attachFix(_container.bottom - _height - scroll);
-            } else {
+            }
+            // 타겟이 브라우저보다 짧은 경우
+            else {
+                // 브라우저 스크롤 남음
                 if (scroll >= _container.top) this.attachFix(0);
+                // 컨텐츠 스크롤 끝남 && 브라우저 스크롤 남음
                 if (scroll >= _container.bottom - _height) this.attachFix(_container.bottom - _height - scroll);
             }
         }
 
         // 스크롤 업
         else {
+            // 타겟이 브라우저보다 긴 경우
             if (isLongerThanBrowser) {
-                // 따라다니다가
+                // 타겟의 스크롤 끝남 && 컨텐츠 스크롤 끝남 && 브라우저 스크롤 남음 - 따라다님
                 this.setTopPosition(_container.bottom - _height - scroll);
-                // 하단 고정
+                // 타겟의 스크롤 끝남 && 컨텐츠 스크롤 남음 - 하단 고정
                 if (_container.bottom >= _browserHeight + scroll) this.setTopPosition(_browserHeight - _height);
+                // 남은 타겟의 스크롤 == 남은 컨텐츠 스크롤 - 고정 해제
                 if (_top + _height > _browserHeight + scroll) this.removeFix();
-            } else {
+            }
+            // 타겟이 브라우저보다 짧은 경우
+            else {
+                // 타겟의 스크롤 끝남 && 컨텐츠 스크롤 남음 - 하단 고정
                 if (scroll >= _container.bottom - _height) this.setTopPosition(_container.bottom - _height - scroll);
+                // 남은 타겟의 스크롤 == 남은 컨텐츠 스크롤 - 고정 해제
                 if (_container.top > scroll) this.removeFix();
             }
         }
