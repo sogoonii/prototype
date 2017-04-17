@@ -33,6 +33,7 @@ body {
     float: left;
     position: relative;
     width: 200px;
+    min-height: 1px;
 }
 
 .nav .floating {
@@ -56,6 +57,7 @@ body {
     float: left;
     position: relative;
     width: 300px;
+    min-height: 1px;
 }
 
 .aside .floating {
