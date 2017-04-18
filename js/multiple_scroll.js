@@ -1,13 +1,13 @@
 'use strict';
 
-var MultiScroll = function(target, container) {
+var MultiScroll = function(content, container) {
 
     var self = this;
 
     // elements
-    var _$target = $(target);
+    var _$content = $(content);
     var _$container = $(container);
-    var _$targetContent = _$target.find('.floating');
+    var _$contentBody = _$content.find('.floating');
 
     // objects
     var _content;
@@ -21,10 +21,10 @@ var MultiScroll = function(target, container) {
         };
 
         _content = {
-            top: _$target.offset().top,
-            bottom: _$target.offset().top + _$targetContent.height(),
-            height: _$targetContent.height(),
-            overSize: _$targetContent.height() > _browser.height
+            top: _$content.offset().top,
+            bottom: _$content.offset().top + _$contentBody.height(),
+            height: _$contentBody.height(),
+            overSize: _$contentBody.height() > _browser.height
         };
 
         _container = {
@@ -32,19 +32,19 @@ var MultiScroll = function(target, container) {
             bottom: _$container.offset().top + _$container.height()
         };
 
-        _$target.height(_content.height);
+        _$content.height(_content.height);
     };
 
     // Fix 적용
     var fixed = function(top) {
-        _$targetContent.addClass('fixed');
-        _$targetContent.css('top', top);
+        _$contentBody.addClass('fixed');
+        _$contentBody.css('top', top);
     };
 
     // Fix 해제
     var unFixed = function() {
-        _$targetContent.removeClass('fixed');
-        _$targetContent.css('top', 'auto');
+        _$contentBody.removeClass('fixed');
+        _$contentBody.css('top', 'auto');
     };
 
     // 스크롤러 적용
@@ -78,13 +78,3 @@ var MultiScroll = function(target, container) {
         self.init();
     });
 };
-
-$(function () {
-    var nav = new MultiScroll('.nav', '.container');
-    var aside = new MultiScroll('.aside', '.container');
-
-    nav.init();
-    aside.init();
-
-    $(window).scroll();
-});
