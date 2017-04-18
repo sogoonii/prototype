@@ -27,6 +27,7 @@ body {
 
 .container {
     overflow: hidden;
+    min-height: 500px;
 }
 
 .nav {

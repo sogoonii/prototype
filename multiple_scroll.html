@@ -10,7 +10,8 @@
 <body>
 
 <div class="wrap">
-    <div class="header"></div>
+    <div class="header">
+    </div>
     <div class="container">
         <div class="nav">
             <div class="floating">
@@ -59,6 +60,17 @@
 
 <script src="https://code.jquery.com/jquery-1.5.min.js"></script>
 <script src="js/multiple_scroll.js"></script>
+<script>
+$(function () {
+    var nav = new MultiScroll('.nav', '.container');
+    var aside = new MultiScroll('.aside', '.container');
+
+    nav.init();
+    aside.init();
+
+    $(window).scroll();
+});
+</script>
 
 </body>
 </html>
