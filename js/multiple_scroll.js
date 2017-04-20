@@ -1,13 +1,22 @@
 'use strict';
 
-var MultiScroll = function(content, container) {
+var Sticky = function(content, container) {
+
+    for(var i = 0; i < $(content).length; i++) {
+        new Scroll($(content)[i], container);
+    }
+
+    $(window).scroll();
+};
+
+var Scroll = function(content, container) {
 
     var self = this;
 
     // elements
     var _$content = $(content);
-    var _$container = $(container);
-    var _$contentBody = _$content.find('.floating');
+    var _$contentBody = $(content).find('.floating');
+    var _$container = $(content).parents(container);
 
     // objects
     var _content;
@@ -36,13 +45,13 @@ var MultiScroll = function(content, container) {
     };
 
     // Fix 적용
-    var fixed = function(top) {
+    var fix = function(top) {
         _$contentBody.addClass('fixed');
         _$contentBody.css('top', top);
     };
 
     // Fix 해제
-    var unFixed = function() {
+    var unFix = function() {
         _$contentBody.removeClass('fixed');
         _$contentBody.css('top', 'auto');
     };
@@ -51,22 +60,22 @@ var MultiScroll = function(content, container) {
     var scroller = function() {
         var scroll = $(window).scrollTop();
 
-        if(!_content.overSize && scroll > _content.top) { // 컨텐츠가 브라우저보다 작고, 컨텐츠가 브라우저 상단에 닿았을 때
-            fixed(0);
+        if(!_content.overSize && scroll > _content.top) {
+            fix(0);
 
             if(scroll + _content.height > _container.bottom) {
-                fixed(_container.bottom - _content.height - scroll);
+                fix(_container.bottom - _content.height - scroll);
             }
         }
-        else if(_content.overSize && _browser.height + scroll > _content.bottom) { // 컨텐츠가 브라우저보다 크고, 컨텐츠가 브라우저 하단에 닿았을 때
-            fixed(_browser.height - _content.height);
+        else if(_content.overSize && _browser.height + scroll > _content.bottom) {
+            fix(_browser.height - _content.height);
 
             if(scroll + _browser.height > _container.bottom) {
-                fixed(_container.bottom - _content.height - scroll);
+                fix(_container.bottom - _content.height - scroll);
             }
         }
         else {
-            unFixed();
+            unFix();
         }
     };
 
@@ -77,4 +86,7 @@ var MultiScroll = function(content, container) {
     $(window).resize(function() {
         self.init();
     });
+
+    this.init();
+
 };
