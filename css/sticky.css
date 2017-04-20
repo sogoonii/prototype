@@ -8,28 +8,24 @@ body {
 .wrap {
     overflow: hidden;
     position: relative;
-    width: 1200px;
-    margin: 0 auto;
-    border: solid #999;
-    border-width: 0 1px;
     /*background-color: #eee;*/
 }
 
 .header {
-    height: 200px;
-    border-bottom: 1px solid #999;
+    height: 100px;
+    background-color: #333;
 }
 
 .footer {
     height: 200px;
-    border-top: 1px solid #999;
+    background-color: #333;
 }
 
 .nav {
 }
 
 .nav .floating {
-    width: 1200px;
+    width: 100%;
 }
 
 .nav .floating h1 {

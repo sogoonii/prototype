@@ -1,13 +1,22 @@
 'use strict';
 
-var MultiScroll = function(content, container) {
+var Sticky = function(content, container) {
+
+    for(var i = 0; i < $(content).length; i++) {
+        new Scroll($(content)[i], container);
+    }
+
+    $(window).scroll();
+};
+
+var Scroll = function(content, container) {
 
     var self = this;
 
     // elements
     var _$content = $(content);
-    var _$container = $(container);
-    var _$contentBody = _$content.find('.floating');
+    var _$contentBody = $(content).find('.floating');
+    var _$container = $(content).parents(container);
 
     // objects
     var _content;
@@ -77,4 +86,7 @@ var MultiScroll = function(content, container) {
     $(window).resize(function() {
         self.init();
     });
+
+    this.init();
+
 };
