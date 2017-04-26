@@ -1,92 +1,86 @@
 'use strict';
 
 var Sticky = function(content, container) {
+    var stickies = [];
 
     for(var i = 0; i < $(content).length; i++) {
-        new Scroll($(content)[i], container);
+        stickies.push(new Scroll($(content)[i], container));
+        stickies[i].init();
     }
+
+    $(window).scroll(function() {
+        for(var i = 0; i < stickies.length; i++) {
+            stickies[i].setPosition();
+        }
+    });
+
+    $(window).resize(function() {
+        for(var i = 0; i < stickies.length; i++) {
+            stickies[i].init();
+        }
+    });
 
     $(window).scroll();
 };
 
 var Scroll = function(content, container) {
 
-    var self = this;
-
-    // elements
-    var _$content = $(content);
-    var _$contentBody = $(content).find('.floating');
-    var _$container = $(content).parents(container);
-
-    // objects
-    var _content;
-    var _container;
-    var _browser;
-    var _scroll;
-
-    this.init = function() {
-        _browser = {
-            height: $(window).height()
-        };
-
-        _content = {
-            top: _$content.offset().top,
-            bottom: _$content.offset().top + _$contentBody.height(),
-            height: _$contentBody.height(),
-            overSize: _$contentBody.height() > _browser.height
-        };
-
-        _container = {
-            top: _$container.offset().top,
-            bottom: _$container.offset().top + _$container.height()
-        };
-
-        _$content.height(_content.height);
-    };
+    var $content = $(content);
+    var $fixable = $(content).find('.fixable');
+    var $container = $(content).parents(container);
 
     // Fix 적용
     var fix = function(top) {
-        _$contentBody.addClass('fixed');
-        _$contentBody.css('top', top);
+        $fixable.addClass('fixed');
+        $fixable.css('top', top);
     };
 
     // Fix 해제
     var unFix = function() {
-        _$contentBody.removeClass('fixed');
-        _$contentBody.css('top', 'auto');
+        $fixable.removeClass('fixed');
+        $fixable.css('top', 'auto');
     };
 
-    // 스크롤러 적용
-    var scroller = function() {
-        var scroll = $(window).scrollTop();
+    this.init = function() {
+        this.browser = {
+            height: $(window).height()
+        };
 
-        if(!_content.overSize && scroll > _content.top) {
+        this.content = {
+            top: $content.offset().top,
+            bottom: $content.offset().top + $fixable.height(),
+            height: $fixable.height(),
+            overSize: $fixable.height() > this.browser.height
+        };
+
+        this.container = {
+            top: $container.offset().top,
+            bottom: $container.offset().top + $container.height()
+        };
+
+        $content.height(this.content.height);
+    };
+
+    this.setPosition = function() {
+        var scrollTop = $(window).scrollTop();
+
+        if(!this.content.overSize && scrollTop > this.content.top) {
             fix(0);
 
-            if(scroll + _content.height > _container.bottom) {
-                fix(_container.bottom - _content.height - scroll);
+            if(scroll + this.content.height > this.container.bottom) {
+                fix(this.container.bottom - this.content.height - scrollTop);
             }
         }
-        else if(_content.overSize && _browser.height + scroll > _content.bottom) {
-            fix(_browser.height - _content.height);
+        else if(this.content.overSize && this.browser.height + scrollTop > this.content.bottom) {
+            fix(this.browser.height - this.content.height);
 
-            if(scroll + _browser.height > _container.bottom) {
-                fix(_container.bottom - _content.height - scroll);
+            if(scrollTop + this.browser.height > this.container.bottom) {
+                fix(this.container.bottom - this.content.height - scrollTop);
             }
         }
         else {
             unFix();
         }
     };
-
-    $(window).scroll(function() {
-        scroller();
-    });
-
-    $(window).resize(function() {
-        self.init();
-    });
-
-    this.init();
 
 };

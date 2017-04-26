@@ -24,11 +24,11 @@ body {
 .nav {
 }
 
-.nav .floating {
+.nav .fixable {
     width: 100%;
 }
 
-.nav .floating h1 {
+.nav .fixable h1 {
     margin: 0;
     padding: 14px 16px 12px;
     background-color: rgba(51, 51, 51, 0.8);
