@@ -6,7 +6,7 @@
     <title>Multiple Scroll</title>
     <meta name="description" content="여러개의 컬럼을 스크롤 하나로 제어하기">
     <meta name="author" content="sogoonii">
-    <link rel="stylesheet" href="css/multiple_scroll.css">
+    <link rel="stylesheet" href="css/3column.css">
 </head>
 <body>
 
@@ -15,7 +15,7 @@
     </div>
     <div class="container">
         <div class="nav">
-            <div class="floating">
+            <div class="fixable">
                 <div class="article">1</div>
                 <div class="article">2</div>
                 <div class="article">3</div>
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="aside">
-            <div class="floating">
+            <div class="fixable">
                 <div class="article">1</div>
                 <div class="article">2</div>
                 <div class="article">3</div>
@@ -60,7 +60,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-1.5.min.js"></script>
-<script src="js/multiple_scroll.js"></script>
+<script src="js/sticky.js"></script>
 <script>
 $(function () {
     var sticky = new Sticky('.nav, .aside', '.container');
