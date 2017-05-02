@@ -54,7 +54,6 @@ var Floating = function(content, container) {
 
     this.getPosition = function() {
         var scrollTop = $(window).scrollTop();
-        var top;
 
         if(!this.content.overSize && scrollTop > this.content.top) {
             if(scrollTop + this.content.height > this.container.bottom) {
