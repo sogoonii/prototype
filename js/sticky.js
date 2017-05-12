@@ -39,14 +39,14 @@ var Floating = function(content, container) {
 
         this.content = {
             top: $content.offset().top,
-            bottom: $content.offset().top + $fixable.height(),
-            height: $fixable.height(),
-            overSize: $fixable.height() > this.browser.height
+            bottom: $content.offset().top + $fixable.outerHeight(),
+            height: $fixable.outerHeight(),
+            overSize: $fixable.outerHeight() > this.browser.height
         };
 
         this.container = {
             top: $container.offset().top,
-            bottom: $container.offset().top + $container.height()
+            bottom: $container.offset().top + $container.outerHeight()
         };
 
         $content.height(this.content.height);
@@ -54,7 +54,6 @@ var Floating = function(content, container) {
 
     this.getPosition = function() {
         var scrollTop = $(window).scrollTop();
-        var top;
 
         if(!this.content.overSize && scrollTop > this.content.top) {
             if(scrollTop + this.content.height > this.container.bottom) {
